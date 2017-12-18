@@ -1,0 +1,10 @@
+ <div class="form-group">
+<div class="container">
+  <div class="nested-fields">
+    <%#= f.label :attachment_name %>
+    <%= f.file_field :attachment_name %>
+    <h5><%= link_to_remove_association "Delete attachment", f, class: "btn btn-default", :style => " margin-top: -56px;
+        margin-left: 255px; "%></h5>
+  </div>
+</div>
+</div>

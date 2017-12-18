@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello User, <%= @user.try(:email)%></h1>
+    <p>
+      <%= @user.try(:email)%> <br>Your idea has submitted <strong><%= @user.try(:first_name) %></strong>. We will contact you soon..
+    </p>
+    <p>Thanks and have a great day!</p>
+  </body>
+</html>

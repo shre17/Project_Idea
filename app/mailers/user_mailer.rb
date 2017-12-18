@@ -28,6 +28,17 @@ class UserMailer < ApplicationMailer
     mail(to: admin.try(:email), subject: "New Requiremrnts for #{idea.idea_title}")
   end
 
+  def update_notification_to_admin(admin, idea_provider, idea, updated_attachments)
+    @admin = admin
+    @idea_provider = idea_provider
+    @idea = idea
+      updated_attachments.each do |attachment|
+        updated_attachments[File.basename(attachment.attachment_name.to_s)] = File.read(Rails.root.to_s+ "/public"+attachment.attachment_name_url.to_s)
+          end
+    mail(to: admin.try(:email), subject: "New Attachments for #{idea.idea_title}")
+  end
+
+
 
     #  attachments[@idea.idea_attachment.original_filename] = File.read(@idea.idea_attachment.current_path)
     # mail(to: @email, subject: @idea.title, from: @user.email)

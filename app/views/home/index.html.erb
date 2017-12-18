@@ -1,1 +1,27 @@
-<h1>WELCOME</h1>
+<center><h1>WELCOME</h1></center>
+<%- model_class = Idea -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th><%= model_class.human_attribute_name(:idea_title) %></th>
+      <th><%= model_class.human_attribute_name(:idea_descripition) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ideas.each do |idea| %>
+      <tr>
+        <td><%= idea.idea_title %></td>
+        <td><%= idea.idea_descripition %></td>
+        <td>
+          <%= link_to t('.show', :default => t("helpers.links.show")),
+                      idea_path(idea), :class => 'btn btn-default btn-xs' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

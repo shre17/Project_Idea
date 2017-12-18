@@ -4,7 +4,11 @@ class IdeasController < ApplicationController
   # GET /ideas
   # GET /ideas.json
   def index
-    @ideas = Idea.all
+    if current_user.role == 'admin'
+      @ideas = Idea.all
+    else
+      @ideas = current_user.ideas
+    end
   end
 
   # GET /ideas/1
@@ -45,12 +49,12 @@ class IdeasController < ApplicationController
   # PATCH/PUT /ideas/1
   # PATCH/PUT /ideas/1.json
   def update
+    attachment = @idea.attachments
     respond_to do |format|
       if @idea.update(idea_params)
+        updated_attachments = @idea.attachments - attachment
         @user = User.find_by(role: "admin")
-        UserMailer.idea_notification_to_admin(@user, @idea).deliver_now
-        @admin = User.find_by(role: "admin")
-        UserMailer.notification_to_idea_creator(@admin, @idea.user, @idea).deliver_now
+        UserMailer.update_notification_to_admin(@admin, @idea.user, @idea, updated_attachments).deliver_now
         format.html { redirect_to @idea, notice: 'Idea was successfully updated.' }
         format.json { render :show, status: :ok, location: @idea }
       else

@@ -6,4 +6,15 @@ class User < ApplicationRecord
   
   has_many :ideas, dependent: :destroy
 
+
+  ROLES = %w[admin user].freeze
+
+   def admin?      
+    self.role == "admin" 
+   end 
+
+  def user?  
+    self.role == "user"   
+  end
+
 end
